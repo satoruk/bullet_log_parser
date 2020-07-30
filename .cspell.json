@@ -1,0 +1,19 @@
+{
+  "version": "0.1",
+  "dictionaries": ["ruby"],
+  "ignorePaths": ["Gemfile.lock", "*.code-workspace"],
+  "words": [
+    "chdir",
+    "deps",
+    "dockerdev",
+    "executables",
+    "histfile",
+    "irbrc",
+    "pryrc",
+    "reviewdog",
+    "rspec",
+    "rubocop",
+    "tmpfs",
+    "vimdiff"
+  ]
+}

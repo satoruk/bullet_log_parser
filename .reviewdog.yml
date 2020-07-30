@@ -1,0 +1,9 @@
+runner:
+  # cspell:
+  #   cmd: npx -q cspell --no-color "**/*.*"
+  #   errorformat:
+  #     - "%f:%l:%c - %m"
+  #   name: cspell
+  #   level: warning
+  rubocop:
+    cmd: bundle exec rubocop

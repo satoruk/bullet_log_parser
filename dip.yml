@@ -1,0 +1,71 @@
+version: "4.1"
+
+environment:
+  # replace your project package name
+  # - chain-case will be generated Chain::Case module
+  # - snake_case will be generated SnakeCase module
+  PROJECT_PACKAGE_NAME: hello_world
+  PROJECT_DIR: /project/${PROJECT_PACKAGE_NAME}
+  WORKING_DIR: ${PROJECT_DIR}/${DIP_WORK_DIR_REL_PATH}
+
+compose:
+  files:
+    - docker-compose.yml
+
+interaction:
+  sh:
+    description: Open a Bash shell within a container (with dependencies up)
+    service: runner
+    command: /bin/bash
+
+  bash:
+    description: Run an arbitrary script within a container (or open a shell without deps)
+    service: runner
+    command: /bin/bash
+    compose_run_options: [no-deps]
+
+  bundle:
+    description: Run Bundler commands
+    service: runner
+    command: bundle
+    compose_run_options: [no-deps]
+
+  rake:
+    description: Run Rake commands
+    service: runner
+    command: bundle exec rake
+
+  yarn:
+    description: Run Yarn commands
+    service: runner
+    command: yarn
+    compose_run_options: [no-deps]
+
+  rspec:
+    description: Run tests
+    service: runner
+    command: bundle exec rspec
+
+  rubocop:
+    description: Run Rubocop
+    service: runner
+    command: bundle exec rubocop
+    compose_run_options: [no-deps]
+
+  reek:
+    description: Run Reek
+    service: runner
+    command: bundle exec reek
+    compose_run_options: [no-deps]
+
+  reviewdog:
+    description: Run ReviewDog
+    service: runner
+    command: reviewdog
+    compose_run_options: [no-deps]
+
+provision:
+  - dip compose down --volumes
+  - dip compose build
+  - dip bundle install
+  # - dip yarn install

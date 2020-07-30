@@ -1,0 +1,50 @@
+version: "2.4"
+
+x-project: &project
+  build:
+    context: .
+    dockerfile: .dockerdev/Dockerfile
+    args:
+      BUNDLER_VERSION: "2.1.4"
+      NODE_MAJOR: "12"
+      PROJECT_DIR: ${PROJECT_DIR}
+      REVIEWDOG_VERSION: "0.10.1"
+      RUBY_VERSION: "2.6.6"
+      YARN_VERSION: "1.22.4"
+  environment: &env
+    NODE_ENV: development
+    PROJECT_PACKAGE_NAME: ${PROJECT_PACKAGE_NAME}
+    PROJECT_DIR: ${PROJECT_DIR}
+  image: ${PROJECT_PACKAGE_NAME}:1.0.0
+  tmpfs:
+    - /tmp
+
+x-backend: &backend
+  <<: *project
+  stdin_open: true
+  tty: true
+  volumes:
+    - .:${PROJECT_DIR}:cached
+    - bundle:/usr/local/bundle
+    - node_modules:${PROJECT_DIR}/node_modules
+    - .dockerdev/.bashrc:/root/.bashrc:ro
+    - .dockerdev/.irbrc:/root/.irbrc:ro
+    - .dockerdev/.pryrc:/root/.pryrc:ro
+  hostname: dev
+  working_dir: ${WORKING_DIR}
+  environment:
+    <<: *env
+    EDITOR: vi
+    THOR_MERGE: vimdiff
+    HISTFILE: ${PROJECT_DIR}/log/.bash_history
+    IRB_HISTORY_FILE: ${PROJECT_DIR}/log/.irb_history
+    PRY_HISTORY_FILE: ${PROJECT_DIR}/log/.pry_history
+
+services:
+  runner:
+    <<: *backend
+    command: /bin/bash
+
+volumes:
+  bundle:
+  node_modules:
