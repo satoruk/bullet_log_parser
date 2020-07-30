@@ -1,0 +1,124 @@
+name: CI
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  lint:
+    strategy:
+      matrix:
+        nodejs: [12.x]
+        ruby: [2.6]
+    env:
+      REVIEWDOG_VERSION: "0.10.1"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # set up Node.JS
+      - name: Use Node.js ${{ matrix.nodejs }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.nodejs }}
+      - name: Get yarn cache
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-nodejs-${{ matrix.nodejs }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-nodejs-${{ matrix.nodejs }}-yarn-
+      - name: yarn install
+        run: yarn install
+      # set up Ruby
+      - name: Set up Ruby ${{ matrix.ruby }}
+        uses: ruby/setup-ruby@v1.40.0
+        with:
+          bundler-cache: true
+          ruby-version: ${{ matrix.ruby }}
+      # set up reviewdog
+      - name: Setup reviewdog
+        run: |
+          mkdir -p $HOME/bin 
+          curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh| sh -s -- -b $HOME/bin v$REVIEWDOG_VERSION
+          echo ::add-path::$HOME/bin
+      - name: Run reviewdog
+        run: reviewdog -fail-on-error -reporter=github-pr-review
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  test:
+    strategy:
+      matrix:
+        nodejs: [12.x]
+        ruby:
+          - 2.5
+          - 2.6
+          - 2.7
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # set up Node.JS
+      - name: Use Node.js ${{ matrix.nodejs }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.nodejs }}
+      - name: Get yarn cache
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-nodejs-${{ matrix.nodejs }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-nodejs-${{ matrix.nodejs }}-yarn-
+      - name: yarn install
+        run: yarn install
+      # set up Ruby
+      - name: Set up Ruby ${{ matrix.ruby }}
+        uses: ruby/setup-ruby@v1.40.0
+        with:
+          bundler-cache: true
+          ruby-version: ${{ matrix.ruby }}
+      # run rspec
+      - name: run rspec
+        run: bundle exec rspec
+  release:
+    needs: [lint, test]
+    if: github.ref == 'refs/heads/master'
+    strategy:
+      matrix:
+        nodejs: [12.x]
+        ruby: [2.6]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # set up Node.JS
+      - name: Use Node.js ${{ matrix.nodejs }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.nodejs }}
+      - name: Get yarn cache
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-nodejs-${{ matrix.nodejs }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-nodejs-${{ matrix.nodejs }}-yarn-
+      - name: yarn install
+        run: yarn install
+      # set up Ruby
+      - name: Set up Ruby ${{ matrix.ruby }}
+        uses: ruby/setup-ruby@v1.40.0
+        with:
+          bundler-cache: true
+          ruby-version: ${{ matrix.ruby }}
+      # release
+      - name: release
+        run: yarn release --ci
+        env:
+          GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

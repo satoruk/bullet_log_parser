@@ -1,0 +1,49 @@
+2020-07-27 02:35:21[WARN] user: root
+ 
+Need Counter Cache
+  Post => [:comments]
+
+2020-07-27 02:35:50[WARN] user: root
+ 
+Need Counter Cache
+  Post => [:comments]
+
+2020-07-27 02:35:50[WARN] user: root
+GET /posts
+Need Counter Cache
+  Post => [:comments]
+
+2020-07-27 02:35:50[WARN] user: root
+GET /posts
+USE eager loading detected
+  Post => [:comments]
+  Add to your query: .includes([:comments])
+Call stack
+  /app/app/views/posts/_post.json.jbuilder:4:in `block in _app_views_posts__post_json_jbuilder__2280256895687227436_47114295576380'
+  /app/app/views/posts/_post.json.jbuilder:3:in `_app_views_posts__post_json_jbuilder__2280256895687227436_47114295576380'
+  /app/app/views/posts/index.json.jbuilder:1:in `_app_views_posts_index_json_jbuilder__4177424529561133656_47114295515920'
+  /app/app/controllers/posts_controller.rb:13:in `index'
+  /app/spec/requests/posts_spec.rb:45:in `block (4 levels) in <main>'
+
+2020-07-27 02:36:01[WARN] user: root
+ 
+Need Counter Cache
+  Post => [:comments]
+
+2020-07-27 02:36:02[WARN] user: root
+GET /posts
+Need Counter Cache
+  Post => [:comments]
+
+2020-07-27 02:36:02[WARN] user: root
+GET /posts
+USE eager loading detected
+  Post => [:comments]
+  Add to your query: .includes([:comments])
+Call stack
+  /app/app/views/posts/_post.json.jbuilder:4:in `block in _app_views_posts__post_json_jbuilder___3611106438543125633_47089465596180'
+  /app/app/views/posts/_post.json.jbuilder:3:in `_app_views_posts__post_json_jbuilder___3611106438543125633_47089465596180'
+  /app/app/views/posts/index.json.jbuilder:1:in `_app_views_posts_index_json_jbuilder__1831027869533026986_47089465492160'
+  /app/app/controllers/posts_controller.rb:13:in `index'
+  /app/spec/requests/posts_spec.rb:45:in `block (4 levels) in <main>'
+

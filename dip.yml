@@ -1,10 +1,7 @@
 version: "4.1"
 
 environment:
-  # replace your project package name
-  # - chain-case will be generated Chain::Case module
-  # - snake_case will be generated SnakeCase module
-  PROJECT_PACKAGE_NAME: hello_world
+  PROJECT_PACKAGE_NAME: bullet_log_parser
   PROJECT_DIR: /project/${PROJECT_PACKAGE_NAME}
   WORKING_DIR: ${PROJECT_DIR}/${DIP_WORK_DIR_REL_PATH}
 
