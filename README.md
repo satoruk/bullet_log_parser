@@ -1,7 +1,8 @@
 <h1 align="center">bullet log parser</h2>
 
 <p align="center">
-<a href="https://github.com/satoruk/bullet_log_parser/actions?query=workflow%3ACI"><img src="https://github.com/satoruk/bullet_log_parser/workflows/CI/badge.svg" /></a>
+  <a href="https://github.com/satoruk/bullet_log_parser/actions?query=workflow%3ACI"><img src="https://github.com/satoruk/bullet_log_parser/workflows/CI/badge.svg" height="20"/></a>
+  <a href="https://badge.fury.io/rb/bullet_log_parser"><img src="https://badge.fury.io/rb/bullet_log_parser.svg" alt="Gem Version" height="20"></a>
 </p>
 
 This parser can help to convert the Bullet logs to prefer format you want.
