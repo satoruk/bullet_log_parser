@@ -1,0 +1,41 @@
+{
+  "name": "bullet_log_parser",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:satoruk/bullet_log_parser.git",
+  "author": "satoruk <koyanagi3106@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "commit": "git-cz",
+    "release": "semantic-release"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "5.0.1",
+    "@semantic-release/commit-analyzer": "8.0.1",
+    "@semantic-release/git": "9.0.0",
+    "@semantic-release/github": "7.0.7",
+    "@semantic-release/release-notes-generator": "9.0.1",
+    "commitizen": "4.1.2",
+    "cspell": "4.0.63",
+    "cz-conventional-changelog": "3.2.0",
+    "prettier": "2.0.5",
+    "semantic-release": "17.1.1",
+    "semantic-release-rubygem": "1.2.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/git",
+      "@semantic-release/github",
+      "semantic-release-rubygem"
+    ]
+  }
+}

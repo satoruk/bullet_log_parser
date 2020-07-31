@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'bundler/setup'
-require 'hello_world'
+require 'bullet_log_parser'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
