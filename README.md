@@ -27,7 +27,12 @@ cat log/bullet.log | bullet_log_filter.rb
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'bullet_log_parser'
+begin
+  require 'bullet_log_parser'
+rescue LoadError => _e
+  require 'bundler/setup'
+  require 'bullet_log_parser'
+end
 
 if __FILE__ == $PROGRAM_NAME
   results = BulletLogParser.uniq_log($stdin) do |ast|
