@@ -65,4 +65,4 @@ provision:
   - dip compose down --volumes
   - dip compose build
   - dip bundle install
-  # - dip yarn install
+  - dip yarn install
