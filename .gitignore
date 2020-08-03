@@ -6,6 +6,7 @@
 /_yardoc/
 /coverage/
 /doc/
+/log/
 /node_modules/
 /pkg/
 /spec/reports/

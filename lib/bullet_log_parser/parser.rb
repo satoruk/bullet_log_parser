@@ -9,7 +9,10 @@ module BulletLogParser # :nodoc:
 
     def initialize
       @parse_method = :parse_line1
-      @ast = {}
+      @ast = {
+        details: [],
+        stack: []
+      }
       @terminated = false
       @failed = false
     end
@@ -30,6 +33,10 @@ module BulletLogParser # :nodoc:
 
     def terminated?
       @terminated || @failed
+    end
+
+    def completed?
+      @terminated && @failed == false
     end
 
     def puts(str)
