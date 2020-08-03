@@ -23,18 +23,24 @@ module BulletLogParser # :nodoc:
     memo
   end
 
-  def self.parse(io)
+  def self.parse(io, &block)
     parser = Parser.new
     loop do
-      str = io.gets
-      break unless str
+      line = io.gets
+      unless line
+        parse_line(parser, '', &block)
+        break
+      end
 
-      parser.puts(str.chomp)
-      next unless parser.terminated?
-
-      yield parser.ast unless parser.failed?
-
-      parser = Parser.new
+      parser = Parser.new if parse_line(parser, line.chomp, &block)
     end
+  end
+
+  def self.parse_line(parser, line)
+    parser.puts(line)
+    return false unless parser.completed?
+
+    yield parser.ast
+    true
   end
 end

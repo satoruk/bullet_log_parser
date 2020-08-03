@@ -1,0 +1,18 @@
+2020-08-01 10:00:01[WARN] user: root
+GET /sample1.json
+Sample1
+  Dummy => [:dummies]
+  Add to your finder: :includes => [:dummies]
+Call stack
+  /app/app/dummy1.rb:1:in `dummy code'
+  /app/app/dummy2.rb:2:in `dummy code'
+  /app/app/dummy3.rb:3:in `dummy code'
+
+2020-08-01 10:00:02[WARN] user: root
+GET /sample1.json
+Sample2
+  Dummy => [:dummies]
+  Add to your finder: :includes => [:dummies]
+Call stack
+  /app/app/dummy1.rb:1:in `dummy code'
+  /app/app/dummy2.rb:2:in `dummy code'
