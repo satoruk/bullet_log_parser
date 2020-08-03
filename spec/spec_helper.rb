@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 require 'bundler/setup'
+begin
+  require 'pry'
+rescue StandardError
+  false
+end
+
 require 'bullet_log_parser'
 
 RSpec.configure do |config|
