@@ -3,6 +3,7 @@
 /.node-version
 /.ruby-version
 /.yardoc
+/Gemfile.lock
 /_yardoc/
 /coverage/
 /doc/
