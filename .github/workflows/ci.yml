@@ -45,6 +45,7 @@ jobs:
           mkdir -p $HOME/bin 
           curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh| sh -s -- -b $HOME/bin v$REVIEWDOG_VERSION
           echo ::add-path::$HOME/bin
+      # run reviewdog
       - name: Run reviewdog
         run: reviewdog -fail-on-error -reporter=github-pr-review
         env:

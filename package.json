@@ -29,6 +29,10 @@
     }
   },
   "release": {
+    "assets": [
+      "CHANGELOG.md",
+      "lib/**/*.rb"
+    ],
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
