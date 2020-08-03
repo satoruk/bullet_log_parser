@@ -9,6 +9,8 @@ group :development do
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-doc'
+
+  # required_ruby_version >= 2.6.0
   gem 'pry-stack_explorer'
 end
 
