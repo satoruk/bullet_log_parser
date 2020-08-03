@@ -2,6 +2,7 @@
 
 require 'bullet_log_parser/version'
 require 'bullet_log_parser/parser'
+require 'set'
 
 module BulletLogParser # :nodoc:
   def self.generate_bare_ast(ast)
@@ -11,7 +12,7 @@ module BulletLogParser # :nodoc:
   end
 
   def self.uniq_log(io)
-    memo = Hash.new { |h, k| h[k] = [] }
+    memo = Hash.new { |h, k| h[k] = Set.new }
     parse(io) do |ast|
       bare_ast = generate_bare_ast(ast)
       detection = memo[bare_ast[:detection]]
