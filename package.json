@@ -29,17 +29,21 @@
     }
   },
   "release": {
-    "assets": [
-      "CHANGELOG.md",
-      "lib/**/*.rb"
-    ],
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
       "@semantic-release/changelog",
-      "@semantic-release/git",
-      "@semantic-release/github",
-      "semantic-release-rubygem"
+      "semantic-release-rubygem",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "CHANGELOG.md",
+            "lib/**/*.rb"
+          ]
+        }
+      ],
+      "@semantic-release/github"
     ]
   }
 }
