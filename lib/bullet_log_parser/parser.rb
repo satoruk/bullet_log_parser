@@ -13,30 +13,21 @@ module BulletLogParser # :nodoc:
         details: [],
         stack: []
       }
-      @terminated = false
-      @failed = false
+      @state = nil
     end
 
     attr_reader :ast
 
-    def failed
-      @failed = true
-    end
-
     def failed?
-      @failed
-    end
-
-    def terminated
-      @terminated = true
+      @state == :failed
     end
 
     def terminated?
-      @terminated || @failed
+      @state != nil
     end
 
     def completed?
-      @terminated && @failed == false
+      @state == :completed
     end
 
     def puts(str)
@@ -46,9 +37,17 @@ module BulletLogParser # :nodoc:
 
     private
 
+    def change_state_failed
+      @state = :failed
+    end
+
+    def change_state_completed
+      @state = :completed
+    end
+
     def parse_line1(str)
       matched = REGEX_LINE1.match(str)
-      return failed unless matched
+      return change_state_failed unless matched
 
       @parse_method = :parse_line2
       @ast.update({
@@ -67,7 +66,7 @@ module BulletLogParser # :nodoc:
 
     def parse_line_detector(str)
       @parse_method = :parse_line_detector_detail
-      return failed if str.empty?
+      return change_state_failed if str.empty?
 
       @ast.update({
                     detection: str,
@@ -82,19 +81,19 @@ module BulletLogParser # :nodoc:
         return
       end
 
-      return terminated if str.empty?
+      return change_state_completed if str.empty?
 
       matched = REGEX_DETAIL.match(str)
-      return failed unless matched
+      return change_state_failed unless matched
 
       @ast[:details] << matched[1]
     end
 
     def parse_line_call_stack_detail(str)
-      return terminated if str.empty?
+      return change_state_completed if str.empty?
 
       matched = REGEX_CALL_STACK.match(str)
-      return failed unless matched
+      return change_state_failed unless matched
 
       @ast[:stack] << {
         filename: matched[1],
