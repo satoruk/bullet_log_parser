@@ -13,10 +13,10 @@ jobs:
         nodejs: [12.x]
         ruby: [2.6]
     env:
-      REVIEWDOG_VERSION: "0.10.1"
+      REVIEWDOG_VERSION: "0.10.2"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.1
       # set up Node.JS
       - name: Use Node.js ${{ matrix.nodejs }}
         uses: actions/setup-node@v1
@@ -25,7 +25,7 @@ jobs:
       - name: Get yarn cache
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
-      - uses: actions/cache@v2
+      - uses: actions/cache@v2.1.0
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}
           key: ${{ runner.os }}-nodejs-${{ matrix.nodejs }}-yarn-${{ hashFiles('**/yarn.lock') }}
@@ -47,9 +47,7 @@ jobs:
           echo ::add-path::$HOME/bin
       # run reviewdog
       - name: Run reviewdog
-        run: |
-          export GITHUB_ACTION=true
-          reviewdog -fail-on-error -reporter=github-pr-review
+        run: reviewdog -fail-on-error -reporter=github-pr-review
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -63,7 +61,7 @@ jobs:
           - 2.7
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.1
       # set up Node.JS
       - name: Use Node.js ${{ matrix.nodejs }}
         uses: actions/setup-node@v1
@@ -72,7 +70,7 @@ jobs:
       - name: Get yarn cache
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
-      - uses: actions/cache@v2
+      - uses: actions/cache@v2.1.0
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}
           key: ${{ runner.os }}-nodejs-${{ matrix.nodejs }}-yarn-${{ hashFiles('**/yarn.lock') }}
@@ -98,7 +96,7 @@ jobs:
         ruby: [2.6]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.1
       # set up Node.JS
       - name: Use Node.js ${{ matrix.nodejs }}
         uses: actions/setup-node@v1
@@ -107,7 +105,7 @@ jobs:
       - name: Get yarn cache
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
-      - uses: actions/cache@v2
+      - uses: actions/cache@v2.1.0
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}
           key: ${{ runner.os }}-nodejs-${{ matrix.nodejs }}-yarn-${{ hashFiles('**/yarn.lock') }}
