@@ -17,7 +17,7 @@
     "cspell": "4.1.0",
     "cz-conventional-changelog": "3.3.0",
     "prettier": "2.1.2",
-    "semantic-release": "17.1.1",
+    "semantic-release": "19.0.3",
     "semantic-release-rubygem": "1.2.0"
   },
   "config": {
