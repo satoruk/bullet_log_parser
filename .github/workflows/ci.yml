@@ -36,7 +36,7 @@ jobs:
         run: yarn install
       # set up Ruby
       - name: Set up Ruby ${{ matrix.ruby }}
-        uses: ruby/setup-ruby@v1.40.0
+        uses: ruby/setup-ruby@v1.197.0
         with:
           bundler-cache: true
           ruby-version: ${{ matrix.ruby }}
@@ -82,7 +82,7 @@ jobs:
         run: yarn install
       # set up Ruby
       - name: Set up Ruby ${{ matrix.ruby }}
-        uses: ruby/setup-ruby@v1.40.0
+        uses: ruby/setup-ruby@v1.197.0
         with:
           bundler-cache: true
           ruby-version: ${{ matrix.ruby }}
@@ -118,7 +118,7 @@ jobs:
         run: yarn install
       # set up Ruby
       - name: Set up Ruby ${{ matrix.ruby }}
-        uses: ruby/setup-ruby@v1.40.0
+        uses: ruby/setup-ruby@v1.197.0
         with:
           bundler-cache: true
           ruby-version: ${{ matrix.ruby }}
